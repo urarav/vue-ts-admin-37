@@ -11,8 +11,8 @@ export default defineConfig({
     vue(),
     AutoImport({
       imports: ["vue"],
-      // dts: "types/auto-import.d.ts",
-      dts: true,
+      dts: "types/auto-import.d.ts",
+      // dts: true,
       resolvers: [ElementPlusResolver()],
     }),
     Components({

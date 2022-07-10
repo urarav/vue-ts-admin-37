@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { useUserStore } from "@/store/modules/user";
-import type { loginInfo } from "~/store";
-const info = reactive<loginInfo>({
-  userName: "",
+import router from "@/router";
+import type { TloginInfo } from "~/store";
+const info = reactive<TloginInfo>({
+  username: "",
   password: "",
 });
-const { userName, password } = toRefs(info);
-const handleLogin = () => {
-  useUserStore().login(info);
+const { username, password } = toRefs(info);
+const handleLogin = async () => {
+  try {
+    await useUserStore().login(info);
+    router.push("/");
+  } catch (e) {
+    console.log(e);
+  }
 };
 </script>
 
 <template>
   <form class="box">
     <div class="input-box">
-      <input v-model="userName" required type="text" />
+      <input v-model="username" required type="text" />
       <span>Name</span>
     </div>
     <div class="input-box">

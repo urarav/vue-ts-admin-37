@@ -8,7 +8,7 @@ import {
 const routes: Array<RouteRecordRaw> = [
   { path: "/login", component: () => import("@/views/login/index.vue") },
   { path: "/home", component: () => import("@/views/dashboard/index.vue") },
-  { path: "/", redirect: "/login" },
+  { path: "/", redirect: "/home" },
 ];
 
 const router: Router = createRouter({

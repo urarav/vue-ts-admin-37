@@ -3,7 +3,8 @@ import { createApp } from "vue";
 // import "element-plus/dist/index.css";
 import router from "./router";
 import store from "./store";
-import "@/styles/index.scss";
 import App from "./App.vue";
+import "@/styles/index.scss";
+import "@/router/permission";
 
 createApp(App).use(router).use(store).mount("#app");
