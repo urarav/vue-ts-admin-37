@@ -7,9 +7,25 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    App: typeof import('./../src/App.vue')['default']
+    Bar: typeof import('./../src/views/bar/index.vue')['default']
+    Baz1: typeof import('./../src/views/baz/baz1.vue')['default']
+    Baz2: typeof import('./../src/views/baz/baz2.vue')['default']
+    BreadCrumb: typeof import('./../src/layout/components/breadCrumb/index.vue')['default']
     Dashboard: typeof import('./../src/views/dashboard/index.vue')['default']
+    ElCol: typeof import('element-plus/es')['ElCol']
+    ElMenu: typeof import('element-plus/es')['ElMenu']
+    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElRow: typeof import('element-plus/es')['ElRow']
+    ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    Foo: typeof import('./../src/views/foo/index.vue')['default']
+    Layout: typeof import('./../src/layout/index.vue')['default']
     Login: typeof import('./../src/views/login/index.vue')['default']
+    Navbar: typeof import('./../src/layout/components/navbar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Sidebar: typeof import('./../src/layout/components/sidebar/index.vue')['default']
+    SidebarItem: typeof import('./../src/layout/components/sidebar/sidebar-item.vue')['default']
+    TagsView: typeof import('./../src/layout/components/tagsView/index.vue')['default']
   }
 }
