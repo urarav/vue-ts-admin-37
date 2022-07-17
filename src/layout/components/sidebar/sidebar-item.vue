@@ -36,10 +36,7 @@ const resolvePath = (routePath: string): string =>
       :to="resolvePath(theOnlyOneChild.path)"
     >
       <el-menu-item :index="resolvePath(theOnlyOneChild.path)">
-        <item-icon
-          v-if="theOnlyOneChild.meta.icon"
-          :name="(theOnlyOneChild.meta.icon as string)"
-        />
+        <item-icon :meta="theOnlyOneChild.meta" />
         <template v-if="theOnlyOneChild.meta.title" #title>
           {{ theOnlyOneChild.meta.title }}
         </template>
@@ -49,10 +46,7 @@ const resolvePath = (routePath: string): string =>
   <!-- 嵌套子菜单 -->
   <el-sub-menu :index="resolvePath(routeItem.path)" v-else>
     <template v-if="routeItem.meta && routeItem.meta.title" #title>
-      <item-icon
-        v-if="routeItem.meta?.icon"
-        :name="(routeItem.meta.icon as string)"
-      />
+      <item-icon :meta="routeItem.meta" />
       {{routeItem.meta!.title}}
     </template>
     <sidebar-item

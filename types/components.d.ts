@@ -19,8 +19,6 @@ declare module '@vue/runtime-core' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     Foo: typeof import('./../src/views/foo/index.vue')['default']
-    HelloWorld: typeof import('./../src/components/HelloWorld.vue')['default']
-    IEpLoading: typeof import('~icons/ep/loading')['default']
     ItemLink: typeof import('./../src/layout/components/sidebar/item-link.vue')['default']
     Layout: typeof import('./../src/layout/index.vue')['default']
     Login: typeof import('./../src/views/login/index.vue')['default']
@@ -30,6 +28,7 @@ declare module '@vue/runtime-core' {
     Sidebar: typeof import('./../src/layout/components/sidebar/index.vue')['default']
     SidebarItem: typeof import('./../src/layout/components/sidebar/sidebar-item.vue')['default']
     SvgIcon: typeof import('./../src/components/svg-icon/index.vue')['default']
+    SvgIconEp: typeof import('./../src/components/svg-icon-ep/index.vue')['default']
     TagsView: typeof import('./../src/layout/components/tags-view/index.vue')['default']
   }
 }
