@@ -1,39 +1,65 @@
 <script setup lang="ts">
+import path from "path";
 import { RouteRecordRaw } from "vue-router";
+import ItemIcon from "@/layout/components/sidebar/item-icon";
 
 type Tprops = {
-  route: RouteRecordRaw;
+  routeItem: RouteRecordRaw;
+  basePath: string;
 };
-const { route } = defineProps<Tprops>();
+const { routeItem, basePath } = defineProps<Tprops>();
 
-const childNum = computed<number>(() => route.children?.length ?? 0);
+const childNum = computed<number>(() => routeItem.children?.length ?? 0);
+/**
+ * 判断子节点数量：
+ * 1：多于一个子节点时，返回null走嵌套子菜单
+ * 2：等于一个子节点时，返回这个子节点
+ * 3：没有子节点时，返回本身（path需置空，否则路径会重复拼接）
+ */
 const theOnlyOneChild = computed<RouteRecordRaw | null>(() =>
   childNum.value > 1
     ? null
     : childNum.value === 1
-    ? route.children![0]
-    : { ...route }
+    ? routeItem.children![0]
+    : { ...routeItem, path: "" }
 );
+
+const resolvePath = (routePath: string): string =>
+  path.resolve(basePath, routePath);
 </script>
 
 <template>
   <!-- 无嵌套子菜单：判断有子节点且子节点无子节点 -->
   <template v-if="theOnlyOneChild && !theOnlyOneChild.children">
-    <el-menu-item v-if="theOnlyOneChild.meta" :index="theOnlyOneChild.path">
-      <template v-if="theOnlyOneChild.meta.title" #title>{{
-        theOnlyOneChild.meta.title
-      }}</template>
-    </el-menu-item>
+    <item-link
+      v-if="theOnlyOneChild.meta"
+      :to="resolvePath(theOnlyOneChild.path)"
+    >
+      <el-menu-item :index="resolvePath(theOnlyOneChild.path)">
+        <item-icon
+          v-if="theOnlyOneChild.meta.icon"
+          :name="(theOnlyOneChild.meta.icon as string)"
+        />
+        <template v-if="theOnlyOneChild.meta.title" #title>
+          {{ theOnlyOneChild.meta.title }}
+        </template>
+      </el-menu-item>
+    </item-link>
   </template>
   <!-- 嵌套子菜单 -->
-  <el-sub-menu index="222" v-else>
-    <template v-if="route.meta && route.meta.title" #title>{{
-      route.meta!.title
-    }}</template>
-    <SidebarItem
-      v-for="child in route.children"
-      :key="route.path"
-      :route="child"
+  <el-sub-menu :index="resolvePath(routeItem.path)" v-else>
+    <template v-if="routeItem.meta && routeItem.meta.title" #title>
+      <item-icon
+        v-if="routeItem.meta?.icon"
+        :name="(routeItem.meta.icon as string)"
+      />
+      {{routeItem.meta!.title}}
+    </template>
+    <sidebar-item
+      v-for="child in routeItem.children"
+      :key="child.path"
+      :routeItem="child"
+      :base-path="resolvePath(child.path)"
     />
   </el-sub-menu>
 </template>

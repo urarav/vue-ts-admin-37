@@ -30,11 +30,11 @@ import Navbar from "./components/navbar/index.vue";
     flex: 1;
     display: flex;
     flex-direction: column;
-    & > .box-navbar {
+    > .box-navbar {
       height: 50px;
       background-color: aquamarine;
     }
-    & > .box-content {
+    > .box-content {
       flex: 1;
       background-color: aqua;
     }

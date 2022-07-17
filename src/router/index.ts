@@ -25,6 +25,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/dashboard/index.vue"),
         meta: {
           title: "dashboard",
+          icon: "sidebar-dashboard",
         },
       },
     ],
@@ -39,6 +40,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: "/test1/index",
     meta: {
       roles: ["admin"],
+      icon: "sidebar-example",
     },
     children: [
       {
@@ -47,6 +49,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/foo/index.vue"),
         meta: {
           title: "测试1",
+          icon: "sidebar-eye-open",
         },
       },
     ],
@@ -58,6 +61,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: "/test/baz1",
     meta: {
       title: "测试2",
+      icon: "sidebar-form",
     },
     children: [
       {
@@ -66,7 +70,28 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/baz/baz1.vue"),
         meta: {
           title: "测试2-1",
+          icon: "sidebar-table",
         },
+        children: [
+          {
+            path: "baz11",
+            name: "Baz11",
+            component: () => import("@/views/baz/baz1.vue"),
+            meta: {
+              title: "测试2-1-1",
+              icon: "sidebar-tree",
+            },
+          },
+          {
+            path: "baz112",
+            name: "Baz112",
+            component: () => import("@/views/baz/baz1.vue"),
+            meta: {
+              title: "测试2-1-2",
+              icon: "sidebar-user",
+            },
+          },
+        ],
       },
       {
         path: "baz2",
@@ -74,6 +99,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/baz/baz2.vue"),
         meta: {
           title: "测试2-2",
+          icon: "sidebar-nested",
         },
       },
     ],

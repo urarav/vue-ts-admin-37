@@ -6,6 +6,8 @@
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "sourceMap": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -25,7 +27,8 @@
       ]
     },
     "types": [
-      "element-plus/global"
+      "element-plus/global",
+      "vite-plugin-svg-icons/client"
     ]
   },
   "include": [

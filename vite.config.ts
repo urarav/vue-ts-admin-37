@@ -1,16 +1,24 @@
 const path = require("path");
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    //fix "path" module issue
+    "process.platform": null,
+    "process.version": null,
+  },
   plugins: [
     vue(),
+    vueJsx(),
     AutoImport({
       // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
       imports: ["vue"],
@@ -40,6 +48,18 @@ export default defineConfig({
     }),
     Icons({
       autoInstall: true,
+    }),
+    // https://github.com/vbenjs/vite-plugin-svg-icons/blob/main/README.zh_CN.md
+    createSvgIconsPlugin({
+      // 指定需要缓存的图标文件夹
+      iconDirs: [
+        path.resolve(process.cwd(), "src/icons"),
+        // path.resolve(process.cwd(), "src/icons/common"),
+        // path.resolve(process.cwd(), "src/icons/sidebar"),
+      ],
+      // 指定symbolId格式
+      // symbolId: "icon-[name]",
+      symbolId: "icon-[dir]-[name]",
     }),
   ],
   resolve: {

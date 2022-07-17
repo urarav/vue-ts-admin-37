@@ -1,6 +1,5 @@
 import { getToken } from "@/utils/cookie";
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { ElMessage } from "element-plus";
 
 export class Request {
   // axios实例
@@ -21,7 +20,8 @@ export class Request {
   private setRequestInterceptors() {
     this.instance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
-        getToken() && (config.headers!["X-Access-Token"] = getToken() as string);
+        getToken() &&
+          (config.headers!["X-Access-Token"] = getToken() as string);
         return config;
       },
       (error: any) => Promise.reject(error)
@@ -87,9 +87,10 @@ export class Request {
         ElMessage({
           showClose: true,
           message: msg,
-          type: "error",
-        });
-        return new Promise(() => {});
+          type: 'error',
+        })
+        // return new Promise(() => {});
+        return Promise.reject(error)
       }
     );
   }

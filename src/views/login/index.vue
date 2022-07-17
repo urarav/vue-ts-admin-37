@@ -6,12 +6,16 @@ const info = reactive<TloginInfo>({
   username: "",
   password: "",
 });
+const loading = ref<boolean>(false);
 const { username, password } = toRefs(info);
 const handleLogin = async () => {
   try {
+    loading.value = true;
     await useUserStore().login(info);
+    loading.value = false;
     router.push("/");
   } catch (e) {
+    loading.value = false;
     console.log(e);
   }
 };
@@ -27,7 +31,10 @@ const handleLogin = async () => {
       <input v-model="password" required type="password" autocomplete="off" />
       <span>Password</span>
     </div>
-    <button class="btn-box" @click.prevent="handleLogin">Login</button>
+    <button class="btn-box" @click.prevent="handleLogin">
+      <el-icon v-show="loading" class="is-loading"><i-ep-loading /></el-icon>
+      Login
+    </button>
   </form>
 </template>
 
@@ -56,7 +63,7 @@ const handleLogin = async () => {
       &:valid,
       &:focus {
         border: 1px solid #00dfc4;
-        & + span {
+        + span {
           color: #00dfc4;
           transform: translate(10px, -7px);
           padding: 0 10px;
@@ -71,7 +78,7 @@ const handleLogin = async () => {
     &:nth-child(2) {
       input:valid,
       input:focus {
-        & + span {
+        + span {
           color: #1d2b3a;
           background-color: #00dfc4;
           border: 2px;
@@ -98,6 +105,9 @@ const handleLogin = async () => {
     padding: 10px;
     border-radius: 4px;
     text-transform: uppercase;
+    > .el-icon {
+      vertical-align: text-top;
+    }
     &:hover {
       border: 1px solid #00dfc4;
       color: #00dfc4;

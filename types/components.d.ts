@@ -8,17 +8,20 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     App: typeof import('./../src/App.vue')['default']
-    Bar: typeof import('./../src/views/bar/index.vue')['default']
     Baz1: typeof import('./../src/views/baz/baz1.vue')['default']
     Baz2: typeof import('./../src/views/baz/baz2.vue')['default']
-    BreadCrumb: typeof import('./../src/layout/components/breadCrumb/index.vue')['default']
+    BreadCrumb: typeof import('./../src/layout/components/bread-crumb/index.vue')['default']
     Dashboard: typeof import('./../src/views/dashboard/index.vue')['default']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     Foo: typeof import('./../src/views/foo/index.vue')['default']
+    HelloWorld: typeof import('./../src/components/HelloWorld.vue')['default']
+    IEpLoading: typeof import('~icons/ep/loading')['default']
+    ItemLink: typeof import('./../src/layout/components/sidebar/item-link.vue')['default']
     Layout: typeof import('./../src/layout/index.vue')['default']
     Login: typeof import('./../src/views/login/index.vue')['default']
     Navbar: typeof import('./../src/layout/components/navbar/index.vue')['default']
@@ -26,6 +29,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./../src/layout/components/sidebar/index.vue')['default']
     SidebarItem: typeof import('./../src/layout/components/sidebar/sidebar-item.vue')['default']
-    TagsView: typeof import('./../src/layout/components/tagsView/index.vue')['default']
+    SvgIcon: typeof import('./../src/components/svg-icon/index.vue')['default']
+    TagsView: typeof import('./../src/layout/components/tags-view/index.vue')['default']
   }
 }
