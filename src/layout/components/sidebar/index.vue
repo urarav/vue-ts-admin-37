@@ -2,13 +2,6 @@
 import { usePermissionStore } from "@/store/modules/permission";
 
 const routes = computed(() => usePermissionStore().routes);
-
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
 </script>
 
 <template>
@@ -19,8 +12,6 @@ const handleClose = (key: string, keyPath: string[]) => {
         background-color="#545c64"
         default-active="2"
         text-color="#fff"
-        @open="handleOpen"
-        @close="handleClose"
       >
         <SidebarItem
           v-for="routeItem in routes"
@@ -35,6 +26,6 @@ const handleClose = (key: string, keyPath: string[]) => {
 
 <style lang="scss" scoped>
 .el-menu{
-  min-height: 100vh;
+  height: 100vh;
 }
 </style>

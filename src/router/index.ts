@@ -25,8 +25,8 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/dashboard/index.vue"),
         meta: {
           title: "dashboard",
-          // icon: "sidebar-dashboard",
-          iconEp: 'Location'
+          icon: "sidebar-dashboard",
+          // iconEp: 'Location'
         },
       },
     ],
@@ -111,5 +111,19 @@ const router: Router = createRouter({
   history: createWebHashHistory(),
   routes: constantRoutes,
 });
+
+export function resetRouter() {
+  try {
+    for (const route of router.getRoutes()) {
+      const { name, meta } = route;
+      if (name && meta.roles && (meta.roles as string[]).length) {
+        router.hasRoute(name) && router.removeRoute(name);
+      }
+    }
+    router.push("/login");
+  } catch {
+    window.location.reload();
+  }
+}
 
 export default router;

@@ -21,7 +21,7 @@ import Navbar from "./components/navbar/index.vue";
 
 <style lang="scss" scoped>
 .box {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   &-aside {
     width: 200px;
@@ -31,12 +31,11 @@ import Navbar from "./components/navbar/index.vue";
     display: flex;
     flex-direction: column;
     > .box-navbar {
-      height: 50px;
-      background-color: aquamarine;
+      border-bottom: 1px solid rgba(151, 168, 190, 0.25);
     }
     > .box-content {
       flex: 1;
-      background-color: aqua;
+      overflow: auto;
     }
   }
 }

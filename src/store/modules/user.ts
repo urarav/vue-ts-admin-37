@@ -8,6 +8,7 @@ import type {
   TuserState,
 } from "~/store";
 import store from "@/store";
+import router, { resetRouter } from "@/router";
 
 export const useUserStore = defineStore({
   id: "useStore",
@@ -33,13 +34,15 @@ export const useUserStore = defineStore({
           user: { roles },
         },
       } = userInfo;
-      this.roles = roles
-      return roles
+      this.roles = roles;
+      return roles;
     },
-    logout(){
-      this.$reset()
-      removeToken()
-    }
+    logout() {
+      this.$reset();
+      removeToken();
+      // location.reload();
+      resetRouter();
+    },
   },
 });
 
