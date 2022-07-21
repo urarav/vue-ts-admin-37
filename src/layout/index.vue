@@ -23,9 +23,6 @@ import Navbar from "./components/navbar/index.vue";
 .box {
   height: 100vh;
   display: flex;
-  &-aside {
-    width: 200px;
-  }
   &-main {
     flex: 1;
     display: flex;

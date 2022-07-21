@@ -1,3 +1,4 @@
+import { Interface } from "readline";
 import { RouteRecordRaw } from "vue-router";
 
 export interface IuserInfo {
@@ -21,3 +22,10 @@ export type TuserInfoResponse = {
 };
 
 export type TpermissionState = Record<string, Array<RouteRecordRaw>>;
+
+export interface IappState {
+  sidebar: {
+    opened: boolean;
+    withoutAnimation: boolean;
+  };
+}

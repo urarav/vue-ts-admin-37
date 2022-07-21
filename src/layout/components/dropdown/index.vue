@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useUserStore } from "@/store/modules/user";
+const emits = defineEmits(["logout"]);
 const handleCommand = (command: string): void => {
   switch (command) {
     case "0":
       window.open("https://github.com/urarav/vue-ts-admin-37", "_blank");
       break;
     case "1":
-      useUserStore().logout();
+      emits("logout");
       break;
     default:
       break;

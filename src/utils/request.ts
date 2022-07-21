@@ -45,7 +45,7 @@ export class Request {
       (error: any) => {
         let msg = "";
         const {
-          response: { status },
+          response: { status = null },
         } = error;
         switch (status) {
           case 400:
@@ -87,10 +87,10 @@ export class Request {
         ElMessage({
           showClose: true,
           message: msg,
-          type: 'error',
-        })
+          type: "error",
+        });
         // return new Promise(() => {});
-        return Promise.reject(error)
+        return Promise.reject(error);
       }
     );
   }

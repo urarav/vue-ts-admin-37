@@ -6,9 +6,11 @@ import ItemIcon from "@/layout/components/sidebar/item-icon";
 type Tprops = {
   routeItem: RouteRecordRaw;
   basePath: string;
+  isCollapse: boolean;
 };
-const { routeItem, basePath } = defineProps<Tprops>();
+const { routeItem, basePath, isCollapse } = defineProps<Tprops>();
 
+const clsObj = computed(() => ({ "is-collapse": isCollapse }));
 const childNum = computed<number>(() => routeItem.children?.length ?? 0);
 /**
  * 判断子节点数量：
@@ -34,11 +36,12 @@ const resolvePath = (routePath: string): string =>
     <item-link
       v-if="theOnlyOneChild.meta"
       :to="resolvePath(theOnlyOneChild.path)"
+      :class="clsObj"
     >
       <el-menu-item :index="resolvePath(theOnlyOneChild.path)">
         <item-icon :meta="theOnlyOneChild.meta" />
         <template v-if="theOnlyOneChild.meta.title" #title>
-          {{ theOnlyOneChild.meta.title }}
+          <span>{{ theOnlyOneChild.meta.title }}</span>
         </template>
       </el-menu-item>
     </item-link>
@@ -47,15 +50,22 @@ const resolvePath = (routePath: string): string =>
   <el-sub-menu :index="resolvePath(routeItem.path)" v-else>
     <template v-if="routeItem.meta && routeItem.meta.title" #title>
       <item-icon :meta="routeItem.meta" />
-      {{routeItem.meta!.title}}
+      <span>{{routeItem.meta!.title}}</span>
     </template>
     <sidebar-item
       v-for="child in routeItem.children"
       :key="child.path"
       :routeItem="child"
       :base-path="resolvePath(child.path)"
+      :is-collapse="isCollapse"
     />
   </el-sub-menu>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.is-collapse {
+  .svg-icon {
+    margin-right: 0;
+  }
+}
+</style>

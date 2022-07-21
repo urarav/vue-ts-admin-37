@@ -1,9 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useApplicationStore } from "@/store/modules/application";
+import { useUserStore } from "@/store/modules/user";
+
+const applicationStore = useApplicationStore();
+const logout = (): void => useUserStore().logout();
+const toggleCollapse = (): void => applicationStore.toogleSidebar();
+const isActive = computed<boolean>(() => applicationStore.sidebar.opened);
+</script>
 
 <template>
   <div class="nav">
     <div class="nav-left">
-      <el-icon><i-ep-expand /></el-icon>
+      <hamburger @toggleCollapse="toggleCollapse" :is-active="isActive" />
       <div class="bread-crumb">
         <span>首页/仪表盘/监控</span>
       </div>
@@ -11,7 +19,7 @@
     <div class="nav-right">
       <full-screen />
       <el-icon><i-ep-magicStick /></el-icon>
-      <dropdown />
+      <dropdown @logout="logout" />
     </div>
   </div>
 </template>

@@ -20,8 +20,8 @@ const symbolId = computed<string>(() => `#${props.prefix}-${props.name}`);
 
 <style lang="scss" scoped>
 .svg-icon {
-  width: 1.25em;
-  height: 1.25em;
+  max-width: 1em;
+  height: 1em;
   fill: currentColor;
   overflow: hidden;
   margin-right: 10px;
