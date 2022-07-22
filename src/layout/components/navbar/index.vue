@@ -13,7 +13,7 @@ const isActive = computed<boolean>(() => applicationStore.sidebar.opened);
     <div class="nav-left">
       <hamburger @toggleCollapse="toggleCollapse" :is-active="isActive" />
       <div class="bread-crumb">
-        <span>首页/仪表盘/监控</span>
+        <bread-crumb />
       </div>
     </div>
     <div class="nav-right">

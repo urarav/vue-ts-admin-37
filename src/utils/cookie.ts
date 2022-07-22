@@ -11,3 +11,9 @@ export function getToken(): string | undefined {
 export function removeToken(): void {
   Cookie.remove(constantKeys.token);
 }
+export function setSidebarStatus(status: string): void {
+  Cookie.set(constantKeys.sidebarStatus, status);
+}
+export function getSidebarStatus(): string | undefined {
+  return Cookie.get(constantKeys.sidebarStatus);
+}

@@ -4,11 +4,9 @@ import { createApp } from "vue";
 import router from "./router";
 import store from "./store";
 import App from "./App.vue";
+import directives from "./directives";
 import "@/styles/index.scss";
 import "@/router/permission";
 import "virtual:svg-icons-register";
 
-createApp(App)
-  .use(router)
-  .use(store)
-  .mount("#app");
+createApp(App).use(directives).use(router).use(store).mount("#app");

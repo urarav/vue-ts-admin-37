@@ -8,7 +8,7 @@ import type {
   TuserState,
 } from "~/store";
 import store from "@/store";
-import router, { resetRouter } from "@/router";
+import { resetRouter } from "@/router";
 
 export const useUserStore = defineStore({
   id: "useStore",

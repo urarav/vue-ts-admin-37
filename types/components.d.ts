@@ -14,6 +14,8 @@ declare module '@vue/runtime-core' {
     Dashboard: typeof import('./../src/views/dashboard/index.vue')['default']
     Dropdown: typeof import('./../src/layout/components/dropdown/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
+    ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCol: typeof import('element-plus/es')['ElCol']

@@ -1,3 +1,4 @@
+import { getSidebarStatus, setSidebarStatus } from "@/utils/cookie";
 import { defineStore } from "pinia";
 import { IappState } from "~/store";
 
@@ -6,7 +7,7 @@ export const useApplicationStore = defineStore({
   state(): IappState {
     return {
       sidebar: {
-        opened: true,
+        opened: getSidebarStatus() !== "closed",
         withoutAnimation: false,
       },
     };
@@ -14,6 +15,9 @@ export const useApplicationStore = defineStore({
   actions: {
     toogleSidebar() {
       this.sidebar.opened = !this.sidebar.opened;
+      this.sidebar.opened
+        ? setSidebarStatus("opened")
+        : setSidebarStatus("closed");
     },
   },
 });

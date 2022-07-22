@@ -4,7 +4,7 @@ import { useApplicationStore } from "@/store/modules/application";
 import { RouteRecordRaw } from "vue-router";
 
 const isCollapse = computed<boolean>(
-  () => useApplicationStore().sidebar.opened
+  () => !useApplicationStore().sidebar.opened
 );
 const routes = computed<Array<RouteRecordRaw>>(
   () => usePermissionStore().routes
