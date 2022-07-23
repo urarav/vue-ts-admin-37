@@ -16,9 +16,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     path: "/",
     component: layout,
     redirect: "/dashboard",
-    meta: {
-      title: "Dashboard",
-    },
     children: [
       {
         path: "dashboard",
@@ -59,7 +56,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     path: "/test2",
     name: "Test2",
     component: layout,
-    redirect: "/test/baz1",
+    redirect: "/test2/baz1",
     meta: {
       title: "测试2",
       icon: "sidebar-form",

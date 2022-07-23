@@ -16,6 +16,9 @@ import Navbar from "./components/navbar/index.vue";
         <router-view />
       </div>
     </div>
+    <div class="box-right-panel">
+      <right-panel />
+    </div>
   </div>
 </template>
 
@@ -33,6 +36,27 @@ import Navbar from "./components/navbar/index.vue";
     > .box-content {
       flex: 1;
       overflow: auto;
+    }
+  }
+
+  &-right-panel{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+    background-color: #545c64;
+    border-radius: 6px 0 0 6px;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    :deep(.el-icon){
+      height: 100%;
+      width: 100%;
+      font-size: 24px;
+      cursor: pointer;
     }
   }
 }
