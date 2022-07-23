@@ -29,3 +29,11 @@ export interface IappState {
     withoutAnimation: boolean;
   };
 }
+
+export interface IsettingsStore {
+  fixedHeader: boolean;
+  showTagsView: boolean;
+  showSidebarLogo: boolean;
+  showThemeSwitch: boolean;
+  showScreenfull: boolean;
+}

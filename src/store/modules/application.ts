@@ -13,7 +13,7 @@ export const useApplicationStore = defineStore({
     };
   },
   actions: {
-    toogleSidebar() {
+    toggleSidebar() {
       this.sidebar.opened = !this.sidebar.opened;
       this.sidebar.opened
         ? setSidebarStatus("opened")

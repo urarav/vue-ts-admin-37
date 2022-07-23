@@ -4,7 +4,7 @@ import { useUserStore } from "@/store/modules/user";
 
 const applicationStore = useApplicationStore();
 const logout = (): void => useUserStore().logout();
-const toggleCollapse = (): void => applicationStore.toogleSidebar();
+const toggleCollapse = (): void => applicationStore.toggleSidebar();
 const isActive = computed<boolean>(() => applicationStore.sidebar.opened);
 </script>
 

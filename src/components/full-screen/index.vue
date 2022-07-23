@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import screenfull from "screenfull";
+import screenFull from "screenfull";
 const handleClick = () => {
-  if (!screenfull.isEnabled) {
+  if (!screenFull.isEnabled) {
     ElMessage.warning("你的浏览器无法工作！");
     return;
   }
-  screenfull.toggle();
+  screenFull.toggle();
 };
 </script>
 

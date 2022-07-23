@@ -8,11 +8,12 @@ const drawer = ref<boolean>(false);
   </el-icon>
   <el-drawer
     v-model="drawer"
-    title="I am the title"
+    title="系统布局设置"
     direction="rtl"
+    size="20%"
     append-to-body
   >
-    <span>Hi, there!</span>
+    <slot></slot>
   </el-drawer>
 </template>
 

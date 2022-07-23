@@ -17,7 +17,7 @@ import Navbar from "./components/navbar/index.vue";
       </div>
     </div>
     <div class="box-right-panel">
-      <right-panel />
+      <right-panel><settings /></right-panel>
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ import Navbar from "./components/navbar/index.vue";
     }
   }
 
-  &-right-panel{
+  &-right-panel {
     width: 50px;
     height: 50px;
     display: flex;
@@ -52,7 +52,7 @@ import Navbar from "./components/navbar/index.vue";
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    :deep(.el-icon){
+    :deep(.el-icon) {
       height: 100%;
       width: 100%;
       font-size: 24px;

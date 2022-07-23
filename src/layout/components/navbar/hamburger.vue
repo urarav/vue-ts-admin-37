@@ -4,11 +4,11 @@ type Tprops = {
 };
 const emits = defineEmits(["toggleCollapse"]);
 defineProps<Tprops>();
-const toogleCollapse = (): void => emits("toggleCollapse");
+const toggleCollapse = (): void => emits("toggleCollapse");
 </script>
 
 <template>
-  <el-icon @click="toogleCollapse">
+  <el-icon @click="toggleCollapse">
     <i-ep-expand v-if="isActive" />
     <i-ep-fold v-else />
   </el-icon>
