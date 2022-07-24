@@ -1,9 +1,9 @@
 <script setup lang="ts">
-type Tprops = {
+type TProps = {
   isActive: boolean;
 };
 const emits = defineEmits(["toggleCollapse"]);
-defineProps<Tprops>();
+defineProps<TProps>();
 const toggleCollapse = (): void => emits("toggleCollapse");
 </script>
 

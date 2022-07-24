@@ -1,21 +1,29 @@
 <script setup lang="ts">
-import Sidebar from "./components/sidebar/index.vue";
-import Navbar from "./components/navbar/index.vue";
+import { layoutMode } from "@/enums/layoutMode";
+import { useApplicationStore } from "@/store/modules/application";
+import { useSettingStore } from "@/store/modules/setting";
+
+const clsObj = computed(() => ({
+  [layoutMode._MODE_HAM]: useSettingStore().layoutSwitch,
+}));
+const menuWidth = computed<string>(() =>
+  !useApplicationStore().sidebar.opened ? "50px" : "200px"
+);
 </script>
 
 <template>
-  <div class="box">
+  <div class="box" :class="clsObj">
     <div class="box-aside">
       <sidebar />
     </div>
-    <div class="box-main">
-      <div class="box-navbar">
-        <navbar />
-      </div>
-      <div class="box-content">
-        <router-view />
-      </div>
+    <!-- <div class="box-main"> -->
+    <div class="box-navbar">
+      <navbar />
     </div>
+    <div class="box-content">
+      <router-view />
+    </div>
+    <!-- </div> -->
     <div class="box-right-panel">
       <right-panel><settings /></right-panel>
     </div>
@@ -25,17 +33,34 @@ import Navbar from "./components/navbar/index.vue";
 <style lang="scss" scoped>
 .box {
   height: 100vh;
-  display: flex;
-  &-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    > .box-navbar {
-      border-bottom: 1px solid rgba(151, 168, 190, 0.25);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  &-aside {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    width: v-bind(menuWidth);
+    transition: ease width 0.15s;
+    > .el-row,
+    .el-menu {
+      height: 100%;
+      width: 100%;
     }
-    > .box-content {
-      flex: 1;
-      overflow: auto;
+  }
+  &-navbar {
+    border-bottom: 1px solid rgba(151, 168, 190, 0.25);
+  }
+  &-content {
+    overflow: auto;
+  }
+  &.header-aside-main {
+    .box-navbar {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+    .box-aside {
+      grid-row-start: 2;
+      grid-row-end: 3;
     }
   }
 

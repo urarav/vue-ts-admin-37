@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useApplicationStore } from "@/store/modules/application";
 import { useUserStore } from "@/store/modules/user";
+import { useSettingStore } from "@/store/modules/setting";
 
 const applicationStore = useApplicationStore();
+const settingStore = useSettingStore();
 const logout = (): void => useUserStore().logout();
 const toggleCollapse = (): void => applicationStore.toggleSidebar();
 const isActive = computed<boolean>(() => applicationStore.sidebar.opened);
@@ -17,8 +19,8 @@ const isActive = computed<boolean>(() => applicationStore.sidebar.opened);
       </div>
     </div>
     <div class="nav-right">
-      <full-screen />
-      <el-icon><i-ep-magicStick /></el-icon>
+      <full-screen v-if="settingStore.showScreenplay"/>
+      <el-icon v-if="settingStore.showThemeSwitch"><i-ep-magicStick /></el-icon>
       <dropdown @logout="logout" />
     </div>
   </div>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-type Tprops = {
+type TProps = {
   to: string;
 };
-defineProps<Tprops>();
+defineProps<TProps>();
 </script>
 
 <template>

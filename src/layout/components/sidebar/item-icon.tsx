@@ -10,11 +10,11 @@
 // };
 import SvgIconEp from "@/components/svg-icon-ep/index.vue";
 import SvgIcon from "@/components/svg-icon/index.vue";
-type Tprops = {
-  meta: TrouteMeta;
+type TProps = {
+  meta: TRouteMeta;
 };
 
-const renderDom = (props: Tprops) => {
+const renderDom = (props: TProps) => {
   if (props.meta.iconEp) {
     return <SvgIconEp name={props.meta.iconEp}></SvgIconEp>;
   } else if (props.meta.icon) {

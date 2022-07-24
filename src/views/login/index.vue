@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useUserStore } from "@/store/modules/user";
 import router from "@/router";
-import type { TloginInfo } from "~/store";
-const info = reactive<TloginInfo>({
+import type {TLoginInfo } from "~/store";
+const info = reactive<TLoginInfo>({
   username: "",
   password: "",
 });
@@ -13,7 +13,7 @@ const handleLogin = async () => {
     loading.value = true;
     await useUserStore().login(info);
     loading.value = false;
-    router.push("/");
+    await router.push("/");
   } catch (e) {
     loading.value = false;
     console.log(e);

@@ -1,7 +1,6 @@
-import { Interface } from "readline";
 import { RouteRecordRaw } from "vue-router";
 
-export interface IuserInfo {
+export interface IUserInfo {
   avatar?: string;
   email?: string;
   introduction?: string;
@@ -11,29 +10,30 @@ export interface IuserInfo {
   roles: Array<string>;
   [propName: string]: any;
 }
-export type TuserState = Pick<IuserInfo, "roles"> & { token: string };
-export type TloginInfo = Pick<IuserInfo, "username" | "password">;
-export type TloginResponse = {
+export type TUserState = Pick<IuserInfo, "roles"> & { token: string };
+export type TLoginInfo = Pick<IuserInfo, "username" | "password">;
+export type TLoginResponse = {
   accessToken: string;
   [key: string]: any;
 };
-export type TuserInfoResponse = {
+export type TUserInfoResponse = {
   user: IuserInfo;
 };
 
-export type TpermissionState = Record<string, Array<RouteRecordRaw>>;
+export type TPermissionState = Record<string, Array<RouteRecordRaw>>;
 
-export interface IappState {
+export interface IAppState {
   sidebar: {
     opened: boolean;
     withoutAnimation: boolean;
   };
 }
 
-export interface IsettingsStore {
-  fixedHeader: boolean;
+export interface ISettingsStore {
   showTagsView: boolean;
   showSidebarLogo: boolean;
+  fixedHeader: boolean;
   showThemeSwitch: boolean;
-  showScreenfull: boolean;
+  showScreenplay: boolean;
+  layoutSwitch: boolean;
 }

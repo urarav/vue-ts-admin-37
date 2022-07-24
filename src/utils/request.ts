@@ -13,7 +13,7 @@ export class Request {
   constructor(config?: AxiosRequestConfig) {
     this.instance = axios.create(Object.assign(this.baseConfig, config));
     this.setRequestInterceptors();
-    this.setReponseInterceptors();
+    this.setResponseInterceptors();
   }
 
   // 设置请求拦截器
@@ -29,7 +29,7 @@ export class Request {
   }
 
   // 设置响应拦截器
-  private setReponseInterceptors() {
+  private setResponseInterceptors() {
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
         const {

@@ -3,12 +3,12 @@ import path from "path";
 import { RouteRecordRaw } from "vue-router";
 import ItemIcon from "@/layout/components/sidebar/item-icon";
 
-type Tprops = {
+type TProps = {
   routeItem: RouteRecordRaw;
   basePath: string;
   isCollapse: boolean;
 };
-const { routeItem, basePath, isCollapse } = defineProps<Tprops>();
+const { routeItem, basePath, isCollapse } = defineProps<TProps>();
 
 const clsObj = computed(() => ({ "is-collapse": isCollapse }));
 const childNum = computed<number>(() => routeItem.children?.length ?? 0);

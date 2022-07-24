@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
-type Tprops = {
+type TProps = {
   name: string;
 };
-defineProps<Tprops>();
+defineProps<TProps>();
 </script>
 
 <template>

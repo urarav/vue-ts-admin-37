@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { RouteLocationMatched, useRoute, useRouter } from "vue-router";
-type TmatchedRouteReactive = {
+type TMatchedRouteReactive = {
   breadcrumb: RouteLocationMatched[];
   getRoute: Function;
 };
 
 const route = useRoute();
-const matchInfo = reactive<TmatchedRouteReactive>({
+const matchInfo = reactive<TMatchedRouteReactive>({
   breadcrumb: [],
   getRoute() {
     matchInfo.breadcrumb = route.matched.filter((item) => item.meta?.title);

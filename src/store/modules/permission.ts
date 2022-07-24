@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { TpermissionState } from "~/store";
+import type { TPermissionState } from "~/store";
 import { constantRoutes, asyncRoutes } from "@/router";
 import { RouteRecordRaw } from "vue-router";
 import store from "..";
@@ -33,7 +33,7 @@ function filterAsyncRoutes(
 
 export const usePermissionStore = defineStore({
   id: "permissionStore",
-  state(): TpermissionState {
+  state(): TPermissionState {
     return {
       routes: [],
       dynamicRoutes: [],
@@ -48,6 +48,7 @@ export const usePermissionStore = defineStore({
       this.dynamicRoutes = accessRoutes;
     },
   },
+  getters: {},
 });
 
 export function usePermissionStoreHook() {

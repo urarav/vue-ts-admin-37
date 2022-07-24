@@ -1,10 +1,10 @@
 <script setup lang="ts">
-type Tprops = {
+type TProps = {
   prefix?: string;
   name: string;
   color?: string;
 };
-const props = withDefaults(defineProps<Tprops>(), {
+const props = withDefaults(defineProps<TProps>(), {
   prefix: "icon",
   color: "#333",
 });
@@ -20,10 +20,12 @@ const symbolId = computed<string>(() => `#${props.prefix}-${props.name}`);
 
 <style lang="scss" scoped>
 .svg-icon {
-  max-width: 1em;
+  width: 1em;
+  min-width: 1em;
   height: 1em;
   fill: currentColor;
   overflow: hidden;
   margin-right: 10px;
+  font-size: 16px;
 }
 </style>

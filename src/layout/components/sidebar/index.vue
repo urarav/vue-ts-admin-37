@@ -12,33 +12,23 @@ const routes = computed<Array<RouteRecordRaw>>(
 </script>
 
 <template>
-  <el-row>
-    <el-col :span="24">
-      <el-menu
-        active-text-color="#ffd04b"
-        background-color="#545c64"
-        :unique-opened="true"
-        default-active="2"
-        text-color="#fff"
-        :collapse="isCollapse"
-      >
-        <SidebarItem
-          v-for="routeItem in routes"
-          :key="routeItem.path"
-          :routeItem="routeItem"
-          :base-path="routeItem.path"
-          :is-collapse="isCollapse"
-        />
-      </el-menu>
-    </el-col>
-  </el-row>
+  <el-menu
+    active-text-color="#ffd04b"
+    background-color="#545c64"
+    :unique-opened="true"
+    :collapse-transition="false"
+    default-active="2"
+    text-color="#fff"
+    :collapse="isCollapse"
+  >
+    <SidebarItem
+      v-for="routeItem in routes"
+      :key="routeItem.path"
+      :routeItem="routeItem"
+      :base-path="routeItem.path"
+      :is-collapse="isCollapse"
+    />
+  </el-menu>
 </template>
 
-<style lang="scss" scoped>
-.el-menu {
-  height: 100vh;
-  &:not(.el-menu--collapse) {
-    width: 200px;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

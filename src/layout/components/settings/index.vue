@@ -1,23 +1,48 @@
 <script setup lang="ts">
-import { IsettingsStore } from "~/store";
-type TsettingDescItem = {
+import type { ISettingsStore } from "~/store";
+import { useSettingStore } from "@/store/modules/setting";
+
+type TSettingDescItem = {
   label: string;
-  value: keyof IsettingsStore;
+  value: keyof ISettingsStore;
 };
-const settingDesc = reactive<Array<TsettingDescItem>>([
-  { label: "显示 Tags-View", value: "fixedHeader" },
-  { label: "显示侧边栏 Logo", value: "showTagsView" },
-  { label: "固定 Header", value: "showSidebarLogo" },
+const settingDesc = reactive<Array<TSettingDescItem>>([
+  { label: "显示 Tags-View", value: "showTagsView" },
+  { label: "显示侧边栏 Logo", value: "showSidebarLogo" },
+  { label: "固定 Header", value: "fixedHeader" },
   { label: "显示换肤按钮", value: "showThemeSwitch" },
-  { label: "显示全屏按钮", value: "showScreenfull" },
+  { label: "显示全屏按钮", value: "showScreenplay" },
+  { label: "切换布局按钮", value: "layoutSwitch" },
 ]);
 
-const settingConfig = reactive<IsettingsStore>({
-  fixedHeader: true,
-  showTagsView: true,
-  showSidebarLogo: true,
-  showThemeSwitch: true,
-  showScreenfull: true,
+const settingStore = useSettingStore();
+
+const settingConfig = reactive<ISettingsStore>({
+  showTagsView: settingStore.showTagsView,
+  showSidebarLogo: settingStore.showSidebarLogo,
+  fixedHeader: settingStore.fixedHeader,
+  showThemeSwitch: settingStore.showThemeSwitch,
+  showScreenplay: settingStore.showScreenplay,
+  layoutSwitch: settingStore.layoutSwitch,
+});
+
+watchEffect(() => {
+  const {
+    fixedHeader,
+    showTagsView,
+    showSidebarLogo,
+    showThemeSwitch,
+    showScreenplay,
+    layoutSwitch,
+  } = settingConfig;
+  useSettingStore().changeSetting({
+    fixedHeader,
+    showTagsView,
+    showSidebarLogo,
+    showThemeSwitch,
+    showScreenplay,
+    layoutSwitch,
+  });
 });
 </script>
 
@@ -38,11 +63,12 @@ const settingConfig = reactive<IsettingsStore>({
 
 <style lang="scss" scoped>
 .setting {
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 10px; 
-    padding: 10px;
-  .setting-item {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
+  padding: 10px;
+
+  &-item {
     display: flex;
     justify-content: space-between;
     align-items: center;

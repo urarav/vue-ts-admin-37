@@ -1,10 +1,11 @@
 import { getSidebarStatus, setSidebarStatus } from "@/utils/cookie";
 import { defineStore } from "pinia";
-import { IappState } from "~/store";
+import type { IAppState } from "~/store";
+import store from "..";
 
 export const useApplicationStore = defineStore({
   id: "applicationStore",
-  state(): IappState {
+  state(): IAppState {
     return {
       sidebar: {
         opened: getSidebarStatus() !== "closed",
@@ -20,4 +21,8 @@ export const useApplicationStore = defineStore({
         : setSidebarStatus("closed");
     },
   },
+  getters: {},
 });
+export function useApplicationStoreHook() {
+  return useApplicationStore(store);
+}
