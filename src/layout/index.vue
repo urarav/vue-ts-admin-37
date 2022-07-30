@@ -1,29 +1,25 @@
 <script setup lang="ts">
-import { layoutMode } from "@/enums/layoutMode";
 import { useApplicationStore } from "@/store/modules/application";
 import { useSettingStore } from "@/store/modules/setting";
 
-const clsObj = computed(() => ({
-  [layoutMode._MODE_HAM]: useSettingStore().layoutSwitch,
-}));
+const settingStore = useSettingStore();
 const menuWidth = computed<string>(() =>
   !useApplicationStore().sidebar.opened ? "50px" : "200px"
 );
 </script>
 
 <template>
-  <div class="box" :class="clsObj">
+  <div class="box" :class="{ 'fix-header': settingStore.fixedHeader }">
     <div class="box-aside">
       <sidebar />
     </div>
-    <!-- <div class="box-main"> -->
-    <div class="box-navbar">
+    <div class="box-main">
       <navbar />
+      <tags-view v-if="settingStore.showTagsView" />
+      <div class="box-main-content">
+        <router-view />
+      </div>
     </div>
-    <div class="box-content">
-      <router-view />
-    </div>
-    <!-- </div> -->
     <div class="box-right-panel">
       <right-panel><settings /></right-panel>
     </div>
@@ -33,12 +29,8 @@ const menuWidth = computed<string>(() =>
 <style lang="scss" scoped>
 .box {
   height: 100vh;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr;
+  display: flex;
   &-aside {
-    grid-row-start: 1;
-    grid-row-end: 3;
     width: v-bind(menuWidth);
     transition: ease width 0.15s;
     > .el-row,
@@ -47,20 +39,18 @@ const menuWidth = computed<string>(() =>
       width: 100%;
     }
   }
-  &-navbar {
-    border-bottom: 1px solid rgba(151, 168, 190, 0.25);
-  }
-  &-content {
+  &-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     overflow: auto;
-  }
-  &.header-aside-main {
-    .box-navbar {
-      grid-column-start: 1;
-      grid-column-end: 3;
+    &-content {
+      flex: 1;
     }
-    .box-aside {
-      grid-row-start: 2;
-      grid-row-end: 3;
+  }
+  &.fix-header {
+    .box-main-content {
+      overflow: auto;
     }
   }
 

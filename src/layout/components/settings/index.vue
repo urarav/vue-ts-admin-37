@@ -12,7 +12,6 @@ const settingDesc = reactive<Array<TSettingDescItem>>([
   { label: "固定 Header", value: "fixedHeader" },
   { label: "显示换肤按钮", value: "showThemeSwitch" },
   { label: "显示全屏按钮", value: "showScreenplay" },
-  { label: "切换布局按钮", value: "layoutSwitch" },
 ]);
 
 const settingStore = useSettingStore();
@@ -23,7 +22,6 @@ const settingConfig = reactive<ISettingsStore>({
   fixedHeader: settingStore.fixedHeader,
   showThemeSwitch: settingStore.showThemeSwitch,
   showScreenplay: settingStore.showScreenplay,
-  layoutSwitch: settingStore.layoutSwitch,
 });
 
 watchEffect(() => {
@@ -33,7 +31,6 @@ watchEffect(() => {
     showSidebarLogo,
     showThemeSwitch,
     showScreenplay,
-    layoutSwitch,
   } = settingConfig;
   useSettingStore().changeSetting({
     fixedHeader,
@@ -41,7 +38,6 @@ watchEffect(() => {
     showSidebarLogo,
     showThemeSwitch,
     showScreenplay,
-    layoutSwitch,
   });
 });
 </script>

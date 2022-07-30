@@ -35,5 +35,4 @@ export interface ISettingsStore {
   fixedHeader: boolean;
   showThemeSwitch: boolean;
   showScreenplay: boolean;
-  layoutSwitch: boolean;
 }

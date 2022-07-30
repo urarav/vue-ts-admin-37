@@ -6,7 +6,9 @@ const permission: Directive = {
     const currentRoles = useUserStoreHook().roles,
       { value: bindRoles } = binding;
     if (Array.isArray(bindRoles) && bindRoles.length) {
-      const isDisPlay = currentRoles.some((role) => bindRoles.includes(role));
+      const isDisPlay = currentRoles.some((role: string) =>
+        bindRoles.includes(role)
+      );
       !isDisPlay && (el.style.display = "none");
     } else {
       throw new Error("need roles! Like v-permission=\"['admin','editor']\"");

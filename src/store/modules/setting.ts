@@ -11,7 +11,6 @@ export const useSettingStore = defineStore({
       fixedHeader: true,
       showThemeSwitch: true,
       showScreenplay: true,
-      layoutSwitch: false
     };
   },
   actions: {

@@ -19,7 +19,7 @@ const isActive = computed<boolean>(() => applicationStore.sidebar.opened);
       </div>
     </div>
     <div class="nav-right">
-      <full-screen v-if="settingStore.showScreenplay"/>
+      <full-screen v-if="settingStore.showScreenplay" />
       <el-icon v-if="settingStore.showThemeSwitch"><i-ep-magicStick /></el-icon>
       <dropdown @logout="logout" />
     </div>
@@ -33,6 +33,7 @@ const isActive = computed<boolean>(() => applicationStore.sidebar.opened);
   align-items: center;
   padding: 5px 10px;
   font-size: 20px;
+  border-bottom: 1px solid rgba(151, 168, 190, 0.25);
   &-left {
     display: flex;
     gap: 10px;
