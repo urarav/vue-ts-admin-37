@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import { ISettingsStore } from "~/store";
+import { ISettingsState } from "~/store";
 import store from "..";
 
 export const useSettingStore = defineStore({
   id: "settingStore",
-  state(): ISettingsStore {
+  state(): ISettingsState {
     return {
       showTagsView: true,
       showSidebarLogo: true,
@@ -14,7 +14,7 @@ export const useSettingStore = defineStore({
     };
   },
   actions: {
-    changeSetting(stateObj: ISettingsStore) {
+    changeSetting(stateObj: ISettingsState) {
       this.$state = stateObj;
     },
   },

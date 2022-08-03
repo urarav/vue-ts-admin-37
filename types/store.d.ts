@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from "vue-router";
+import { RouteLocationNormalizedLoaded, RouteRecordRaw } from "vue-router";
 
 export interface IUserInfo {
   avatar?: string;
@@ -29,10 +29,18 @@ export interface IAppState {
   };
 }
 
-export interface ISettingsStore {
+export interface ISettingsState {
   showTagsView: boolean;
   showSidebarLogo: boolean;
   fixedHeader: boolean;
   showThemeSwitch: boolean;
   showScreenplay: boolean;
+}
+
+export interface ITagsItem extends Partial<RouteLocationNormalizedLoaded> {
+  // title?: string;
+}
+
+export interface ITagsState {
+  tags: Array<ITagsItem>;
 }

@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router";
+import { useTagsStore } from "@/store/modules/tags";
+
 const instance = getCurrentInstance();
+const tagsStore = useTagsStore();
+const currentRoute = useRoute();
 const menuState = reactive({
   visible: false,
   top: 0,
@@ -23,11 +28,24 @@ const menuState = reactive({
   },
 });
 
+const addTags = () => currentRoute.name && tagsStore.addTags(currentRoute);
+
+onBeforeMount(() => {
+  addTags();
+});
+
 watch(
   () => menuState.visible,
   (val) => {
     val && document.addEventListener("click", menuState.closeMenu);
     !val && document.removeEventListener("click", menuState.closeMenu);
+  }
+);
+
+watch(
+  () => currentRoute.name,
+  () => {
+    addTags();
   }
 );
 
@@ -42,12 +60,12 @@ const menuStyle = computed(() => ({
     <el-scrollbar style="height: auto">
       <div class="tags">
         <div
-          v-for="i in 30"
-          :key="i"
+          v-for="tag in tagsStore.tags"
+          :key="tag.path"
           class="tags-item"
           @contextmenu.prevent="menuState.openMenu($event)"
         >
-          <span>Master</span>
+          <span>{{ tag.meta?.title }}</span>
           <el-icon><i-ep-close /></el-icon>
         </div>
       </div>

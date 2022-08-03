@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { ISettingsStore } from "~/store";
+import type { ISettingsState } from "~/store";
 import { useSettingStore } from "@/store/modules/setting";
 
 type TSettingDescItem = {
   label: string;
-  value: keyof ISettingsStore;
+  value: keyof ISettingsState;
 };
 const settingDesc = reactive<Array<TSettingDescItem>>([
   { label: "显示 Tags-View", value: "showTagsView" },
@@ -16,7 +16,7 @@ const settingDesc = reactive<Array<TSettingDescItem>>([
 
 const settingStore = useSettingStore();
 
-const settingConfig = reactive<ISettingsStore>({
+const settingConfig = reactive<ISettingsState>({
   showTagsView: settingStore.showTagsView,
   showSidebarLogo: settingStore.showSidebarLogo,
   fixedHeader: settingStore.fixedHeader,
@@ -66,6 +66,7 @@ watchEffect(() => {
 
   &-item {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
   }
