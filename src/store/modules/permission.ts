@@ -21,7 +21,7 @@ function filterAsyncRoutes(
   const resRoutes: RouteRecordRaw[] = [];
   for (const asyncRoute of asyncRoutes) {
     const tempRoute = { ...asyncRoute };
-    if (hasPermission(asyncRoute, roles)) {
+    if (hasPermission(tempRoute, roles)) {
       if (tempRoute.children) {
         tempRoute.children = filterAsyncRoutes(tempRoute.children, roles);
       }
@@ -48,7 +48,11 @@ export const usePermissionStore = defineStore({
       this.dynamicRoutes = accessRoutes;
     },
   },
-  getters: {},
+  getters: {
+    getRoutes(): Array<RouteRecordRaw> {
+      return this.routes;
+    },
+  },
 });
 
 export function usePermissionStoreHook() {

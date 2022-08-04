@@ -10,12 +10,23 @@ export const useTagsStore = defineStore({
   },
   actions: {
     addTags(tag: ITagsItem) {
-      debugger;
       this.tags.push(Object.assign({}, tag));
+    },
+    closeAll() {
+      this.tags = this.tags.filter((item) => item.meta?.affix);
+    },
+    closeOthers(tag: ITagsItem) {
+      this.tags = this.tags.filter(
+        (item) => item.path === tag.path || item.meta?.affix
+      );
+    },
+    closeCurrent(tag: ITagsItem) {
+      const idx = this.tags.findIndex((item) => item.path === tag.path);
+      this.tags.splice(idx, 1);
     },
   },
   getters: {
-    tagsView(): ITagsItem[] {
+    getTags(): ITagsItem[] {
       return this.tags;
     },
   },

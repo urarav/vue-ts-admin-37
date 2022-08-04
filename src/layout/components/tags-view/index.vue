@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
+import { RouteRecordRaw, useRoute } from "vue-router";
 import { useTagsStore } from "@/store/modules/tags";
+import type { ITagsItem } from "~/store.js";
+import { usePermissionStore } from "@/store/modules/permission.js";
+import path from "path";
 
 const instance = getCurrentInstance();
 const tagsStore = useTagsStore();
@@ -9,7 +12,9 @@ const menuState = reactive({
   visible: false,
   top: 0,
   left: 0,
-  openMenu(e: MouseEvent) {
+  selectTag: new Object(),
+  openMenu(tag: ITagsItem, e: MouseEvent) {
+    menuState.selectTag = tag;
     const { proxy } = instance as any,
       { clientX, clientY } = e;
     const offsetWidth = proxy.$el.offsetWidth;
@@ -26,11 +31,44 @@ const menuState = reactive({
   closeMenu() {
     menuState.visible = false;
   },
+  closeAll() {
+    tagsStore.closeAll();
+  },
+  closeOthers() {
+    tagsStore.closeOthers(menuState.selectTag);
+  },
+  closeCurrent() {
+    tagsStore.closeCurrent(menuState.selectTag);
+  },
 });
 
+function filterAffix(routes: RouteRecordRaw[], basePath = "/") {
+  const resultArr: Array<ITagsItem> = [];
+  for (const route of routes) {
+    if (route.children) {
+      const childArr = filterAffix(route.children, route.path);
+      childArr.length && resultArr.concat(childArr);
+    }
+    if (route.meta?.affix) {
+      const _path = path.resolve(basePath, route.path);
+      resultArr.push({
+        path: _path,
+        fullPath: _path,
+        meta: { ...route.meta },
+        name: route.name,
+      });
+    }
+  }
+  return resultArr;
+}
 const addTags = () => currentRoute.name && tagsStore.addTags(currentRoute);
+const initTags = () => {
+  const routes = usePermissionStore().getRoutes;
+  const affixRoutes = filterAffix(routes);
+};
 
 onBeforeMount(() => {
+  initTags();
   addTags();
 });
 
@@ -63,7 +101,7 @@ const menuStyle = computed(() => ({
           v-for="tag in tagsStore.tags"
           :key="tag.path"
           class="tags-item"
-          @contextmenu.prevent="menuState.openMenu($event)"
+          @contextmenu.prevent="menuState.openMenu(tag, $event)"
         >
           <span>{{ tag.meta?.title }}</span>
           <el-icon><i-ep-close /></el-icon>
@@ -79,9 +117,9 @@ const menuStyle = computed(() => ({
     >
       <ul>
         <li>刷新</li>
-        <li>关闭</li>
-        <li>关闭其他</li>
-        <li>关闭所有</li>
+        <li @click="menuState.closeCurrent">关闭</li>
+        <li @click="menuState.closeOthers">关闭其他</li>
+        <li @click="menuState.closeAll">关闭所有</li>
       </ul>
     </el-card>
   </div>

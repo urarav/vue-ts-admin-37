@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useUserStore } from "@/store/modules/user";
 import router from "@/router";
-import type {TLoginInfo } from "~/store";
+import type { TLoginInfo } from "~/store";
+import { LocationQueryValue, useRoute } from "vue-router";
 const info = reactive<TLoginInfo>({
   username: "",
   password: "",
 });
+const curentRoute = useRoute();
 const loading = ref<boolean>(false);
 const { username, password } = toRefs(info);
 const handleLogin = async () => {
@@ -13,7 +15,10 @@ const handleLogin = async () => {
     loading.value = true;
     await useUserStore().login(info);
     loading.value = false;
-    await router.push("/");
+    debugger;
+    await router.push(
+      (curentRoute.query.redirect as LocationQueryValue) || "/"
+    );
   } catch (e) {
     loading.value = false;
     console.log(e);

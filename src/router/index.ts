@@ -24,6 +24,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: "dashboard",
           icon: "sidebar-dashboard",
+          affix: true,
           // iconEp: 'Location'
         },
       },
