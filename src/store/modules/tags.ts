@@ -10,6 +10,8 @@ export const useTagsStore = defineStore({
   },
   actions: {
     addTags(tag: ITagsItem) {
+      const validateFlag = this.tags.some((item) => item.path === tag.path);
+      if (validateFlag) return;
       this.tags.push(Object.assign({}, tag));
     },
     closeAll() {

@@ -1,70 +1,20 @@
 <script setup lang="ts">
-import { RouteRecordRaw, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 import { useTagsStore } from "@/store/modules/tags";
-import type { ITagsItem } from "~/store.js";
 import { usePermissionStore } from "@/store/modules/permission.js";
-import path from "path";
+import { Menu } from "./Menu";
 
-const instance = getCurrentInstance();
 const tagsStore = useTagsStore();
 const currentRoute = useRoute();
-const menuState = reactive({
-  visible: false,
-  top: 0,
-  left: 0,
-  selectTag: new Object(),
-  openMenu(tag: ITagsItem, e: MouseEvent) {
-    menuState.selectTag = tag;
-    const { proxy } = instance as any,
-      { clientX, clientY } = e;
-    const offsetWidth = proxy.$el.offsetWidth;
-    const offsetLeft = proxy.$el.getBoundingClientRect().left;
-    const thresholdX = offsetWidth + offsetLeft - 80;
-    if (clientX > thresholdX) {
-      menuState.left = thresholdX;
-    } else {
-      menuState.left = clientX;
-    }
-    menuState.visible = true;
-    menuState.top = clientY;
-  },
-  closeMenu() {
-    menuState.visible = false;
-  },
-  closeAll() {
-    tagsStore.closeAll();
-  },
-  closeOthers() {
-    tagsStore.closeOthers(menuState.selectTag);
-  },
-  closeCurrent() {
-    tagsStore.closeCurrent(menuState.selectTag);
-  },
-});
+const menuState = reactive<Menu>(new Menu(getCurrentInstance()));
 
-function filterAffix(routes: RouteRecordRaw[], basePath = "/") {
-  const resultArr: Array<ITagsItem> = [];
-  for (const route of routes) {
-    if (route.children) {
-      const childArr = filterAffix(route.children, route.path);
-      childArr.length && resultArr.concat(childArr);
-    }
-    if (route.meta?.affix) {
-      const _path = path.resolve(basePath, route.path);
-      resultArr.push({
-        path: _path,
-        fullPath: _path,
-        meta: { ...route.meta },
-        name: route.name,
-      });
-    }
-  }
-  return resultArr;
-}
 const addTags = () => currentRoute.name && tagsStore.addTags(currentRoute);
 const initTags = () => {
   const routes = usePermissionStore().getRoutes;
-  const affixRoutes = filterAffix(routes);
+  const affixRoutes = menuState.filterAffix(routes);
+  for (const affixRoute of affixRoutes) {
+    affixRoute.name && tagsStore.addTags(affixRoute);
+  }
 };
 
 onBeforeMount(() => {
@@ -73,13 +23,12 @@ onBeforeMount(() => {
 });
 
 watch(
-  () => menuState.visible,
+  () => menuState.getVisible(),
   (val) => {
     val && document.addEventListener("click", menuState.closeMenu);
     !val && document.removeEventListener("click", menuState.closeMenu);
   }
 );
-
 watch(
   () => currentRoute.name,
   () => {
@@ -88,8 +37,8 @@ watch(
 );
 
 const menuStyle = computed(() => ({
-  left: `${menuState.left}px`,
-  top: `${menuState.top}px`,
+  left: `${menuState.getLeft()}px`,
+  top: `${menuState.getTop()}px`,
 }));
 </script>
 
@@ -97,27 +46,39 @@ const menuStyle = computed(() => ({
   <div>
     <el-scrollbar style="height: auto">
       <div class="tags">
-        <div
+        <router-link
           v-for="tag in tagsStore.tags"
           :key="tag.path"
+          :to="{ path: tag.path, query: tag.query }"
           class="tags-item"
+          active-class="tags-item-active"
           @contextmenu.prevent="menuState.openMenu(tag, $event)"
+          @click.middle="!menuState.isAffix(tag) && menuState.closeCurrent(tag)"
         >
           <span>{{ tag.meta?.title }}</span>
-          <el-icon><i-ep-close /></el-icon>
-        </div>
+          <el-icon
+            v-show="!tag.meta?.affix"
+            @click="menuState.closeCurrent(tag)"
+            ><i-ep-close
+          /></el-icon>
+        </router-link>
       </div>
     </el-scrollbar>
 
     <el-card
       :style="menuStyle"
       class="tags-menu"
-      v-show="menuState.visible"
+      v-show="menuState.getVisible()"
       shadow="hover"
     >
       <ul>
         <li>刷新</li>
-        <li @click="menuState.closeCurrent">关闭</li>
+        <li
+          @click="menuState.closeCurrent(menuState.getSelectTag())"
+          v-show="!menuState.isAffix(menuState.getSelectTag())"
+        >
+          关闭
+        </li>
         <li @click="menuState.closeOthers">关闭其他</li>
         <li @click="menuState.closeAll">关闭所有</li>
       </ul>
@@ -141,12 +102,17 @@ const menuStyle = computed(() => ({
     align-items: center;
     gap: 5px;
     border: 1px solid #d8dce5;
-    &::before {
-      width: 8px;
-      height: 8px;
-      content: "";
-      background: #000;
-      border-radius: 50%;
+
+    &-active {
+      background-color: #409eff;
+      color: #fff;
+      &::before {
+        width: 8px;
+        height: 8px;
+        content: "";
+        background: #fff;
+        border-radius: 50%;
+      }
     }
   }
   &-menu {
