@@ -7,10 +7,13 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    404: typeof import('./../src/components/404/index.vue')['default']
     App: typeof import('./../src/App.vue')['default']
     Baz1: typeof import('./../src/views/baz/baz1.vue')['default']
     Baz2: typeof import('./../src/views/baz/baz2.vue')['default']
     BreadCrumb: typeof import('./../src/layout/components/navbar/bread-crumb.vue')['default']
+    Clip: typeof import('./../src/views/components/clip/index.vue')['default']
+    Components: typeof import('./../src/views/components/index.vue')['default']
     Dashboard: typeof import('./../src/views/dashboard/index.vue')['default']
     Dropdown: typeof import('./../src/layout/components/navbar/dropdown.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
@@ -27,6 +30,7 @@ declare module '@vue/runtime-core' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElResult: typeof import('element-plus/es')['ElResult']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
@@ -55,6 +59,8 @@ declare module '@vue/runtime-core' {
     SidebarItem: typeof import('./../src/layout/components/sidebar/sidebar-item.vue')['default']
     SvgIcon: typeof import('./../src/components/svg-icon/index.vue')['default']
     SvgIconEp: typeof import('./../src/components/svg-icon-ep/index.vue')['default']
+    Swiper: typeof import('./../src/views/components/swiper/index.vue')['default']
+    Swipper: typeof import('./../src/views/components/swipper/index.vue')['default']
     TagsView: typeof import('./../src/layout/components/tags-view/index.vue')['default']
   }
 }

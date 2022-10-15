@@ -21,18 +21,14 @@ export const useUserStore = defineStore({
   actions: {
     async login(info: TLoginInfo) {
       const res = await accountLogin<TLoginResponse>(info);
-      const {
-        data: { accessToken },
-      } = res;
+      const { accessToken } = res;
       setToken(accessToken);
       return accessToken;
     },
     async getUserInfo() {
       const userInfo = await userInfoRequest<TUserInfoResponse>();
       const {
-        data: {
-          user: { roles },
-        },
+        user: { roles },
       } = userInfo;
       this.roles = roles;
       return roles;

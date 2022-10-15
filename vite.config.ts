@@ -1,7 +1,7 @@
 const path = require("path");
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import vueJsx from "@vitejs/plugin-vue-jsx";
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import AutoImport from "unplugin-auto-import/vite";
@@ -67,5 +67,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
     // extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+  },
+  server: {
+    port: 8888,
+    proxy: {
+      "/dev": {
+        target: "https://mock.apifox.cn/m1/1759930-0-default",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/dev/, ""),
+      },
+    },
   },
 });

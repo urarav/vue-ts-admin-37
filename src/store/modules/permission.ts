@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { TPermissionState } from "~/store";
-import { constantRoutes, asyncRoutes } from "@/router";
+import { asyncRoutes } from "@/router/asyncRoutes";
+import { constantRoutes } from "@/router/constantRoutes";
 import { RouteRecordRaw } from "vue-router";
 import store from "..";
 

@@ -15,7 +15,6 @@ const handleLogin = async () => {
     loading.value = true;
     await useUserStore().login(info);
     loading.value = false;
-    debugger;
     await router.push(
       (curentRoute.query.redirect as LocationQueryValue) || "/"
     );

@@ -34,9 +34,9 @@ export class Request {
       (response: AxiosResponse) => {
         const {
           data,
-          data: { code },
+          data: { resultCode },
         } = response;
-        if (code === 20000) {
+        if (resultCode === 200) {
           return data;
         } else {
           return Promise.reject(new Error("Error..."));

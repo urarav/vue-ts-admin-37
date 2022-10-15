@@ -3,7 +3,7 @@ const a = ref("baz1");
 </script>
 
 <template>
-  {{ a }}
+  <RouterView/>
 </template>
 
 <style lang="scss" scoped></style>

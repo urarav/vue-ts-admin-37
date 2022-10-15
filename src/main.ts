@@ -6,7 +6,7 @@ import store from "./store";
 import App from "./App.vue";
 import directives from "./directives";
 import "@/styles/index.scss";
-import "@/router/permission";
+import "@/utils/permission";
 import "virtual:svg-icons-register";
 
 createApp(App).use(directives).use(router).use(store).mount("#app");

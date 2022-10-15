@@ -31,9 +31,7 @@ watch(
 );
 watch(
   () => currentRoute.name,
-  () => {
-    addTags();
-  }
+  () => addTags()
 );
 
 const menuStyle = computed(() => ({

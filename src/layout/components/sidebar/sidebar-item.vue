@@ -34,7 +34,7 @@ const resolvePath = (routePath: string): string =>
   <!-- 无嵌套子菜单：判断有子节点且子节点无子节点 -->
   <template v-if="theOnlyOneChild && !theOnlyOneChild.children">
     <item-link
-      v-if="theOnlyOneChild.meta"
+      v-if="theOnlyOneChild.meta && !theOnlyOneChild.meta.hidden"
       :to="resolvePath(theOnlyOneChild.path)"
       :class="clsObj"
     >

@@ -3,3 +3,7 @@ declare type TRouteMeta = {
   icon?: string;
   iconEp?: string;
 };
+
+declare module "nprogress" {
+  export const start: () => void, done: () => void, configure: (any) => void;
+}
