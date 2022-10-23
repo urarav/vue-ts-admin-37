@@ -23,6 +23,15 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         },
       },
       {
+        path: "board",
+        name: "Board",
+        component: () => import("@/views/components/board/index.vue"),
+        meta: {
+          title: "board",
+          icon: "sidebar-nested",
+        },
+      },
+      {
         path: "swiper",
         name: "Swiper",
         component: () => import("@/views/components/swiper/index.vue"),

@@ -1,42 +1,29 @@
 <script setup lang="ts">
 const cvs = ref<HTMLCanvasElement>();
-let ctx = reactive<any>({})
+const isDraw = ref<boolean>(false);
 onMounted(() => {
-  const { value: cvsEle } = cvs;
-  if (cvsEle) {
-    ctx = cvsEle.getContext("2d") as CanvasRenderingContext2D;
-    drawModal(ctx);
-
-    cvsEle.addEventListener("mousedown", function () {
-      this.addEventListener("mousemove", move);
+  const { value: ele } = cvs;
+  if (ele && ele.getContext("2d")) {
+    const ctx = ele.getContext("2d") as CanvasRenderingContext2D;
+    ele.addEventListener("mousedown", (e) => {
+      isDraw.value = true;
+      // ctx.beginPath();
+      const { offsetX, offsetY } = e;
+      // ctx.moveTo(offsetX, offsetY);
     });
-
-    cvsEle.addEventListener("mouseup", function () {
-      this.removeEventListener("mousemove", move);
+    ele.addEventListener("mousemove", (e) => {
+      if (isDraw.value) {
+        ctx.fillStyle = "#000";
+        ctx.lineCap = "round";
+        ctx.lineWidth = 5;
+        const { offsetX, offsetY } = e;
+        ctx.lineTo(offsetX, offsetY);
+        ctx.stroke();
+      }
     });
+    ele.addEventListener("mouseup", () => (isDraw.value = false));
   }
 });
-
-function move(e: MouseEvent) {
-    const { offsetX, offsetY } = e;
-    clearRect(offsetX, offsetY, 10, 10);
-}
-function drawModal(ctx: CanvasRenderingContext2D): void {
-  ctx.save();
-  ctx.fillStyle = "rgba(0,0,0,0.5)";
-  ctx.fillRect(0, 0, 500, 500);
-  ctx.restore();
-}
-function clearRect(
-  x: number,
-  y: number,
-  w: number,
-  h: number
-) {
-  ctx.save();
-  ctx.clearRect(x, y, w, h);
-  ctx.restore();
-}
 </script>
 
 <template>
@@ -52,10 +39,25 @@ function clearRect(
   display: grid;
   place-content: center;
 
-  #canvas {
-    background: url("@/assets/dog.webp") no-repeat;
-    background-size: contain;
-    background-position: center center;
+  .canvas {
+    background-size: contain, 32px 32px, 32px 32px;
+    background: url("@/assets/dog.webp"),
+      linear-gradient(
+        45deg,
+        #ccc 25%,
+        transparent 25%,
+        transparent 75%,
+        #ccc 25%
+      ),
+      linear-gradient(
+          45deg,
+          #ccc 25%,
+          transparent 25%,
+          transparent 75%,
+          #ccc 25%
+        )
+        no-repeat center center,
+      0 0, 16px 16px;
   }
 }
 </style>

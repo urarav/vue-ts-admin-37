@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     App: typeof import('./../src/App.vue')['default']
     Baz1: typeof import('./../src/views/baz/baz1.vue')['default']
     Baz2: typeof import('./../src/views/baz/baz2.vue')['default']
+    Board: typeof import('./../src/views/components/board/index.vue')['default']
     BreadCrumb: typeof import('./../src/layout/components/navbar/bread-crumb.vue')['default']
     Clip: typeof import('./../src/views/components/clip/index.vue')['default']
     Components: typeof import('./../src/views/components/index.vue')['default']
